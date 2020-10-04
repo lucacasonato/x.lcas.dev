@@ -10,6 +10,11 @@ const router = new Router();
 router.get("/", async (ctx) => {
   await ctx.send({ ...root, path: "./index.html" });
 });
+router.get("/.well-known/deno-import-intellisense.json", async (ctx) => {
+  await ctx.send(
+    { ...root, path: "./.well-known/deno-import-intellisense.json" },
+  );
+});
 
 router.get("/:module/:path+", async (ctx) => {
   const { module, path } = ctx.params;
