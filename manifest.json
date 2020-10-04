@@ -2,5 +2,8 @@
   "preact@10.5.3": {
     "mod.js": "mod.d.ts",
     "hooks.js": "hooks.d.ts"
+  },
+  "preact-render-to-string@5.1.10": {
+    "mod.js": "mod.d.ts"
   }
 }
