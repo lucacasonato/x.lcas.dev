@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { PreactContext, Ref as PreactRef } from "./mod.d.ts";
 
 type Inputs = ReadonlyArray<unknown>;
