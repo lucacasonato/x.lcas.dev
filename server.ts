@@ -51,8 +51,10 @@ router.get("/:module/:path+", async (ctx) => {
   await ctx.send({ ...root, path: `/${module}/${path}` });
 });
 
-const app = new Application();
+export const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-await app.listen("0.0.0.0:8080");
+if (import.meta.main) {
+  await app.listen("0.0.0.0:8080");
+}
