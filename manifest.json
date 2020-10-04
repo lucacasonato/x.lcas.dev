@@ -1,0 +1,6 @@
+{
+  "preact@10.5.3": {
+    "mod.js": "mod.d.ts",
+    "hooks.js": "hooks.d.ts"
+  }
+}

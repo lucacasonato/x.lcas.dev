@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "registries": [
+    {
+      "schema": "/:module([a-z0-9-]*)/:path*",
+      "variables": [
+        {
+          "key": "module",
+          "url": "https://x.lcas.dev/_vsc/m"
+        },
+        {
+          "key": "path",
+          "url": "https://x.lcas.dev/_vsc/m/${module}"
+        }
+      ]
+    }
+  ]
+}
