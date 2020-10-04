@@ -76,5 +76,5 @@ testWithServer("registry request d.ts", async () => {
     res.headers.get("x-typescript-types"),
     null,
   );
-  assertStringContains(await res.text(), `export = preact;`);
+  assertStringContains(await res.text(), `import { JSXInternal } from "./jsx.d.ts";`);
 });
