@@ -28,5 +28,5 @@ jobs:
       - name: Lint
         run: deno lint --ignore=./public --unstable
 
-      # - name: Run Tests
-      #   run: deno test -A --unstable
+      - name: Run Tests
+        run: deno test -A --unstable
