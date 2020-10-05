@@ -1,4 +1,4 @@
-import { Component, cloneElement } from "./mod.d.ts";
+import { Component, cloneElement } from "../preact@10.5.3/mod.js";
 
 const DOMAttributeNames = {
   acceptCharset: "accept-charset",
