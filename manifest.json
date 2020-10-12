@@ -1,12 +1,19 @@
 {
   "preact@10.5.3": {
     "mod.js": "mod.d.ts",
-    "hooks.js": "hooks.d.ts"
+    "hooks.js": "hooks.d.ts",
+    "debug.js": "debug.d.ts"
   },
   "preact-render-to-string@5.1.10": {
     "mod.js": "mod.d.ts"
   },
   "preact-head@1.0.3": {
     "mod.js": "mod.d.ts"
+  },
+  "preact@10.5.4": {
+    "mod.js": "mod.d.ts",
+    "hooks.js": "hooks.d.ts",
+    "debug.js": "debug.d.ts",
+    "ssr.js": "ssr.d.ts"
   }
 }
