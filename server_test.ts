@@ -8,18 +8,24 @@ import { app } from "./server.ts";
 
 function testWithServer(name: string, fn: () => Promise<void>) {
   Deno.test(name, async () => {
-    const ready = new Promise((res, rej) => {
-      app.addEventListener("listen", res);
-      app.addEventListener("error", rej);
-    });
     const abortController = new AbortController();
-    app.listen({ port: 8080, signal: abortController.signal });
-    await ready;
-    await fn();
-    abortController.abort();
-    await new Promise((res) =>
-      abortController.signal.addEventListener("abort", res)
-    );
+    try {
+      const ready = new Promise((res, rej) => {
+        app.addEventListener("listen", res);
+        app.addEventListener("error", (r) => {
+          console.log(r, "err");
+          rej(r);
+        });
+      });
+      app.listen({
+        port: 8080,
+        signal: abortController.signal,
+      });
+      await ready;
+      await fn();
+    } finally {
+      abortController.abort();
+    }
   });
 }
 
@@ -27,7 +33,7 @@ testWithServer("index page", async () => {
   const res = await fetch("http://0.0.0.0:8080/");
   assert(res.ok);
   assertEquals(res.headers.get("content-type"), "text/html; charset=utf-8");
-  assertStringIncludes(await res.text(), "<h1>x.deno.land</h1>");
+  assertStringIncludes(await res.text(), "<h1>x.lcas.dev</h1>");
 });
 
 testWithServer("vsc modules list", async () => {
@@ -51,7 +57,7 @@ testWithServer("vsc paths list", async () => {
   );
   const json = await res.json();
   assert(Array.isArray(json));
-  assertEquals(json, ["mod.js", "hooks.js"]);
+  assertEquals(json, ["mod.js", "hooks.js", "debug.js"]);
 });
 
 testWithServer("registry request js w/ d.ts", async () => {
