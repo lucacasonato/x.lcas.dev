@@ -1,9 +1,9 @@
 import {
   assert,
-  assertArrayContains,
   assertEquals,
-  assertStringContains,
-} from "https://deno.land/std@0.73.0/testing/asserts.ts";
+  assertArrayIncludes,
+  assertStringIncludes,
+} from "https://deno.land/std@0.77.0/testing/asserts.ts";
 import { app } from "./server.ts";
 
 function testWithServer(name: string, fn: () => Promise<void>) {
@@ -17,6 +17,9 @@ function testWithServer(name: string, fn: () => Promise<void>) {
     await ready;
     await fn();
     abortController.abort();
+    await new Promise((res) =>
+      abortController.signal.addEventListener("abort", res)
+    );
   });
 }
 
@@ -24,7 +27,7 @@ testWithServer("index page", async () => {
   const res = await fetch("http://0.0.0.0:8080/");
   assert(res.ok);
   assertEquals(res.headers.get("content-type"), "text/html; charset=utf-8");
-  assertStringContains(await res.text(), "<h1>x.deno.land</h1>");
+  assertStringIncludes(await res.text(), "<h1>x.deno.land</h1>");
 });
 
 testWithServer("vsc modules list", async () => {
@@ -32,11 +35,11 @@ testWithServer("vsc modules list", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/json; charset=utf-8",
+    "application/json; charset=utf-8"
   );
   const json = await res.json();
   assert(Array.isArray(json));
-  assertArrayContains(json, ["preact@10.5.3"]);
+  assertArrayIncludes(json, ["preact@10.5.3"]);
 });
 
 testWithServer("vsc paths list", async () => {
@@ -44,7 +47,7 @@ testWithServer("vsc paths list", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/json; charset=utf-8",
+    "application/json; charset=utf-8"
   );
   const json = await res.json();
   assert(Array.isArray(json));
@@ -56,13 +59,13 @@ testWithServer("registry request js w/ d.ts", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/javascript; charset=utf-8",
+    "application/javascript; charset=utf-8"
   );
   assertEquals(
     res.headers.get("x-typescript-types"),
-    "/preact@10.5.3/mod.d.ts",
+    "/preact@10.5.3/mod.d.ts"
   );
-  assertStringContains(await res.text(), `export * from "`);
+  assertStringIncludes(await res.text(), `export * from "`);
 });
 
 testWithServer("registry request d.ts", async () => {
@@ -70,11 +73,11 @@ testWithServer("registry request d.ts", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/typescript; charset=utf-8",
+    "application/typescript; charset=utf-8"
   );
-  assertEquals(
-    res.headers.get("x-typescript-types"),
-    null,
+  assertEquals(res.headers.get("x-typescript-types"), null);
+  assertStringIncludes(
+    await res.text(),
+    `import { JSXInternal } from "./jsx.d.ts";`
   );
-  assertStringContains(await res.text(), `import { JSXInternal } from "./jsx.d.ts";`);
 });
