@@ -24,5 +24,10 @@
     "mod.js": "mod.d.ts",
     "hooks.js": "hooks.d.ts",
     "ssr.js": "ssr.d.ts"
+  },
+  "preact@10.5.11": {
+    "mod.js": "mod.d.ts",
+    "hooks.js": "hooks.d.ts",
+    "ssr.js": "ssr.d.ts"
   }
 }
