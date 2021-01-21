@@ -3,7 +3,7 @@ import {
   assertEquals,
   assertArrayIncludes,
   assertStringIncludes,
-} from "https://deno.land/std@0.77.0/testing/asserts.ts";
+} from "https://deno.land/std@0.84.0/testing/asserts.ts";
 import { app } from "./server.ts";
 
 function testWithServer(name: string, fn: () => Promise<void>) {
