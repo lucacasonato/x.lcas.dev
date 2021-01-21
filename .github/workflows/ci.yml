@@ -23,7 +23,7 @@ jobs:
         run: deno cache deps.ts
 
       - name: Format
-        run: deno fmt --unstable
+        run: deno fmt --ignore=./public --check
 
       - name: Lint
         run: deno lint --ignore=./public --unstable

@@ -1,7 +1,7 @@
 import {
   assert,
-  assertEquals,
   assertArrayIncludes,
+  assertEquals,
   assertStringIncludes,
 } from "https://deno.land/std@0.84.0/testing/asserts.ts";
 import { app } from "./server.ts";
@@ -41,7 +41,7 @@ testWithServer("vsc modules list", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/json; charset=utf-8"
+    "application/json; charset=utf-8",
   );
   const json = await res.json();
   assert(Array.isArray(json));
@@ -53,7 +53,7 @@ testWithServer("vsc paths list", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/json; charset=utf-8"
+    "application/json; charset=utf-8",
   );
   const json = await res.json();
   assert(Array.isArray(json));
@@ -65,11 +65,11 @@ testWithServer("registry request js w/ d.ts", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/javascript; charset=utf-8"
+    "application/javascript; charset=utf-8",
   );
   assertEquals(
     res.headers.get("x-typescript-types"),
-    "/preact@10.5.3/mod.d.ts"
+    "/preact@10.5.3/mod.d.ts",
   );
   assertStringIncludes(await res.text(), `export * from "`);
 });
@@ -79,11 +79,11 @@ testWithServer("registry request d.ts", async () => {
   assert(res.ok);
   assertEquals(
     res.headers.get("content-type"),
-    "application/typescript; charset=utf-8"
+    "application/typescript; charset=utf-8",
   );
   assertEquals(res.headers.get("x-typescript-types"), null);
   assertStringIncludes(
     await res.text(),
-    `import { JSXInternal } from "./jsx.d.ts";`
+    `import { JSXInternal } from "./jsx.d.ts";`,
   );
 });
