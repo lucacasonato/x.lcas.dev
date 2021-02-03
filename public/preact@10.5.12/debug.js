@@ -4,7 +4,7 @@ function t(o, e) {
 }
 typeof window != "undefined" && window.__PREACT_DEVTOOLS__ && window.__PREACT_DEVTOOLS__.attachPreact("10.5.12", n, {Fragment: y$1, Component: p$1});
 export {t as addHookName};
-export default null;var o = {};
+var o = {};
 function r() {
   o = {};
 }
