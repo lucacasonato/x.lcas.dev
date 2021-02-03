@@ -760,7 +760,7 @@ export namespace JSXInternal {
     prefix?: string;
     property?: string;
     resource?: string;
-    export typeof?: string;
+    typeof?: string;
     vocab?: string;
 
     // Microdata Attributes
